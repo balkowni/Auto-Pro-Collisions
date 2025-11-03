@@ -7,279 +7,345 @@
     <meta name="description" content="AutoPro Collision Center — expert collision repair, paint, and dent removal in Los Angeles. Insurance-friendly estimates and fast turnaround." />
     <meta property="og:title" content="AutoPro Collision Center" />
     <meta property="og:description" content="Modern, insurance-friendly body shop: collision repair, paint, dent & bumper repair." />
-    <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0b0b0c" />
     <style>
         :root {
             --black: #0b0b0c;
             --silver: #c9c9c9;
             --silver-2: #e3e3e3;
-            --dark-2: #141416;
             --white: #ffffff;
         }
+        *,*::before,*::after{box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            margin:0;
+            font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+            background:radial-gradient(1200px 800px at 80% -10%, #202022 0%, var(--black) 55%) fixed;
+            color:var(--silver-2);
+        }
+        img{max-width:100%;display:block;}
+        a{text-decoration:none;color:inherit;}
+        h1,h2,h3{color:var(--white);margin:0 0 .5rem;}
+        p{margin:0 0 1rem;line-height:1.6;}
+        .container{width:min(1200px,100% - 2rem);margin-inline:auto;}
 
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            margin: 0;
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
-            color: var(--silver-2);
-            background: radial-gradient(1200px 800px at 80% -10%, #202022 0%, var(--black) 55%) fixed;
+        /* Header */
+        header{
+            position:sticky;top:0;z-index:50;
+            backdrop-filter:blur(6px);
+            background:linear-gradient(180deg,rgba(11,11,12,.85),rgba(11,11,12,.4));
+            border-bottom:1px solid #1e1e20;
         }
-        img { max-width: 100%; display: block; }
-        a { color: inherit; text-decoration: none; }
-        h1,h2,h3 { margin: 0 0 .5rem 0; color: var(--white); letter-spacing: .3px; }
-        p { margin: 0 0 1rem 0; line-height: 1.6; }
-
-        .container { width: min(1200px, 100% - 2rem); margin-inline: auto; }
-        .grid { display: grid; gap: 1.25rem; }
-
-        /* Topbar */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            backdrop-filter: blur(6px);
-            background: linear-gradient(180deg, rgba(11,11,12,.85), rgba(11,11,12,.55));
-            border-bottom: 1px solid #1e1e20;
+        .nav{
+            display:flex;align-items:center;justify-content:space-between;
+            gap:1rem;padding:.75rem 0;
         }
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: .75rem 0;
-            gap: 1rem;
+        .logo-wrap{
+            display:inline-flex;align-items:center;gap:.75rem;
         }
-        /* Logo area */
-        .logo-wrap {
-            display: inline-flex;
-            align-items: center;
-            gap: .65rem;
+        .logo-wrap img{
+            height:46px;
+            width:auto;
         }
-        .logo-wrap img {
-            height: 58px;         /* adjust as needed */
-            width: auto;
-            border-radius: 6px;   /* looks nice on dark background */
+        .brand{
+            font-weight:800;letter-spacing:.4px;text-transform:uppercase;
         }
-        .brand {
-            font-weight: 800;
-            letter-spacing: .5px;
-            color: var(--white);
-            text-transform: uppercase;
-            line-height: 1.05;
+        .links{display:flex;gap:.5rem;}
+        .button{
+            display:inline-flex;align-items:center;gap:.4rem;
+            padding:.6rem 1rem;
+            border-radius:999px;
+            border:1px solid #2a2a2d;
+            background:linear-gradient(180deg,#2b2b2e,#1b1b1d);
+            color:var(--silver-2);
+            font-weight:600;
         }
-        .brand span {
-            display: block;
-            font-weight: 600;
-            color: var(--silver);
-            font-size: .7rem;
-            letter-spacing: .35px;
-            text-transform: none;
+        .button.silver{
+            background:linear-gradient(180deg,#d9d9d9,#bdbdbd);
+            color:#111;
+            border-color:#aaa;
         }
-
-        /* Buttons */
-        .button {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            padding: .6rem 1rem;
-            border-radius: 999px;
-            border: 1px solid #2a2a2d;
-            background: linear-gradient(180deg, #2b2b2e, #1b1b1d);
-            color: var(--silver-2);
-            font-weight: 600;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.35);
-            transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease;
-        }
-        .button:hover { transform: translateY(-1px); border-color: #3b3b3f; }
-        .button.silver {
-            background: linear-gradient(180deg, #d9d9d9, #bdbdbd);
-            color: #111;
-            border-color: #aaaaaa;
-        }
-        .nav .links { display: flex; gap: .5rem; }
 
         /* Hero */
-        .hero {
-            position: relative;
-            padding: 6rem 0 4rem;
-            overflow: hidden;
+        .hero{padding:5.5rem 0 4rem;position:relative;}
+        .hero::after{
+            content:"";position:absolute;inset:0;
+            background:radial-gradient(700px 250px at 20% -10%, rgba(255,255,255,.06), transparent 45%), linear-gradient(180deg, transparent, rgba(0,0,0,.4));
+            pointer-events:none;
         }
-        .hero::after {
-            content:"";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(700px 250px at 20% -10%, rgba(255,255,255,.06), transparent 45%), linear-gradient(180deg, transparent, rgba(0,0,0,.4));
-            pointer-events: none;
+        .hero-inner{
+            position:relative;z-index:1;
+            display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;
         }
-        .hero-inner {
-            display: grid;
-            grid-template-columns: 1.1fr .9fr;
-            gap: 2rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+        .h-sub{color:var(--silver);max-width:58ch;}
+        .badges{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.25rem;}
+        .badge{
+            background:#151517;border:1px solid #2a2a2d;border-radius:999px;
+            padding:.4rem .75rem;font-size:.85rem;
         }
-        .h-sub { color: var(--silver); font-weight: 500; max-width: 58ch; }
+        .hero-logo-card{
+            background:linear-gradient(180deg,#151517,#0f0f11);
+            border:1px solid #232327;border-radius:18px;
+            padding:1rem;box-shadow:0 10px 40px rgba(0,0,0,.5);
+            display:grid;place-items:center;
+            min-height:360px;
+        }
+        .hero-logo-card img{max-width:100%;height:auto;}
 
-        .badges { display:flex; flex-wrap: wrap; gap:.5rem; margin: 1rem 0 1.25rem; }
-        .badge {
-            padding:.45rem .7rem;
-            border:1px solid #2a2a2d;
-            border-radius:999px;
-            background:#151517;
-            font-size:.9rem;
-            color:var(--silver);
-        }
-
-        /* right side hero card now uses your logo */
-        .hero-logo-card {
-            background: linear-gradient(180deg, #151517, #0f0f11);
-            border: 1px solid #232327;
-            border-radius: 18px;
-            padding: 1rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,.5);
-            display: grid;
-            place-items: center;
-        }
-        .hero-logo-card img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        section { padding: 3.5rem 0; border-top: 1px solid #1b1b1d; }
-
-        .services { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-        .svc {
-            background: linear-gradient(180deg, #151517, #0e0e10);
-            border: 1px solid #232327;
-            border-radius: 16px;
-            padding: 1.1rem;
-            min-height: 170px;
-            transition: transform .12s ease, border-color .2s ease;
-        }
-        .svc:hover { transform: translateY(-3px); border-color: #2f2f33; }
-        .svc h3 { font-size: 1.1rem; margin-bottom:.35rem; }
-
-        .gallery { grid-template-columns: repeat(12, 1fr); }
-        .shot {
-            aspect-ratio: 4/3;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #2a2a2d, #1b1b1d);
-            border: 1px solid #2a2a2d;
-            overflow: hidden;
-            position: relative;
-        }
-        .shot span {
-            position:absolute;
-            inset:auto auto .6rem .6rem;
-            padding:.2rem .5rem;
-            background: rgba(0,0,0,.55);
-            border: 1px solid #2a2a2d;
-            color: var(--silver-2);
-            border-radius: 999px;
-            font-size: .8rem;
-        }
-
-        .testis { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .quote {
-            background: linear-gradient(180deg, #151517, #0e0e10);
-            border: 1px solid #232327;
-            border-radius: 16px;
-            padding: 1rem;
-        }
-
-        .contact-wrap { display:grid; grid-template-columns: 1.1fr .9fr; gap:1.5rem; }
-        form { display:grid; gap:.8rem; }
-        label { font-size:.9rem; color: var(--silver); display:block; }
-        input, textarea, select {
-            width:100%;
-            padding:.85rem 1rem;
-            border-radius:12px;
-            border:1px solid #2b2b2f;
-            background:#111113;
-            color: var(--silver-2);
-            outline:none;
-        }
-        textarea { min-height: 140px; resize: vertical; }
-
-        footer { padding: 2rem 0; border-top: 1px solid #1b1b1d; color: var(--silver); }
-        .foot {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
+        /* Sections */
+        section{padding:3.5rem 0;border-top:1px solid #1b1b1d;}
+        .services-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
             gap:1rem;
-            flex-wrap:wrap;
+            margin-top:1.1rem;
         }
-        .tiny { font-size:.85rem; color:#a9a9a9; }
+        .cardish{
+            background:linear-gradient(180deg,#151517,#0e0e10);
+            border:1px solid #232327;
+            border-radius:16px;
+            padding:1rem 1.1rem;
+        }
 
-        @media (max-width: 900px) {
-            .hero-inner, .contact-wrap { grid-template-columns: 1fr; }
-            .nav .links { display:none; }
-            .logo-wrap img { height: 50px; }
+        /* Gallery */
+        .gallery-grid{
+            display:grid;
+            grid-template-columns:repeat(12,1fr);
+            gap:1rem;
+            margin-top:1.1rem;
+        }
+        .shot{
+            aspect-ratio:4/3;
+            border-radius:14px;
+            background:linear-gradient(180deg,#2a2a2d,#1b1b1d);
+            border:1px solid #2a2a2d;
+            position:relative;
+        }
+        .shot span{
+            position:absolute;bottom:.6rem;left:.6rem;
+            background:rgba(0,0,0,.55);border:1px solid #2a2a2d;
+            border-radius:999px;padding:.25rem .6rem;font-size:.75rem;
+        }
+
+        /* Testimonials */
+        .testis{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:1rem;margin-top:1rem;
+        }
+        .quote{background:linear-gradient(180deg,#151517,#0e0e10);border:1px solid #232327;border-radius:16px;padding:1rem;}
+
+        /* Contact */
+        .contact-wrap{
+            display:grid;
+            grid-template-columns:1.1fr .9fr;
+            gap:1.5rem;
+            margin-top:1rem;
+        }
+        form{display:grid;gap:.75rem;}
+        label{font-size:.85rem;color:var(--silver);}
+        input,textarea,select{
+            width:100%;
+            background:#111113;
+            border:1px solid #2b2b2f;
+            border-radius:12px;
+            padding:.7rem 1rem;
+            color:var(--silver-2);
+        }
+        textarea{min-height:130px;resize:vertical;}
+
+        /* Footer */
+        footer{padding:2rem 0;border-top:1px solid #1b1b1d;color:var(--silver);}
+        .foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+        .tiny{font-size:.8rem;color:#a9a9a9;}
+
+        @media (max-width:900px){
+            .hero-inner,.contact-wrap{grid-template-columns:1fr;}
+            .links{display:none;}
+            .gallery-grid{grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-<!-- ===== Top Navigation ===== -->
+<!-- Header -->
 <header>
     <div class="container nav">
-        <a href="#top" class="logo-wrap" aria-label="AutoPro Collision Center">
-            <img src="assets/logo.png" alt="AutoPro Collision Center logo">
-            <span class="brand">
-          AutoPro Collision Center
-          <span>2130 S Vermont Ave, Los Angeles, CA · (323) 939-5066</span>
-        </span>
+        <a href="#top" class="logo-wrap">
+            <img src="assets/logo.png" alt="AutoPro Collision Center">
+            <span class="brand">AUTOPRO COLLISION CENTER</span>
         </a>
         <nav class="links" aria-label="Primary">
             <a href="#services" class="button">Services</a>
-            <a href="#gallery" class="button">Gallery</a>
+            <a href="#gallery" class="button">Before & After</a>
             <a href="#insurance" class="button">Insurance</a>
-            <a href="#contact" class="button silver">Free Estimate</a>
+            <a href="#contact" class="button silver">Contact Us</a>
         </nav>
     </div>
 </header>
 
-<!-- ===== Hero ===== -->
 <main id="top">
+    <!-- Hero -->
     <section class="hero">
         <div class="container hero-inner">
             <div>
-                <h1>Premium Collision Repair. <br/><span style="color:var(--silver);">Black & Silver</span> done right.</h1>
+                <h1>Premium Collision Repair.<br><span style="color:var(--silver);">Black &amp; Silver</span> done right.</h1>
                 <p class="h-sub">
-                    From frame straightening to bumper repair and factory-finish paint,
-                    AutoPro Collision Center brings vehicles back to showroom condition with precision tools and OEM-grade materials.
+                    From frame straightening to bumper repair and factory-finish paint, AutoPro Collision Center brings vehicles
+                    back to showroom condition with precision tools and OEM-grade materials.
                 </p>
-                <div class="badges" aria-label="Highlights">
+                <div class="badges">
                     <span class="badge">Insurance-friendly estimates</span>
                     <span class="badge">OEM paint-code matching</span>
                     <span class="badge">Towing available</span>
                     <span class="badge">Fast turnaround</span>
                 </div>
-                <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
-                    <a class="button silver" href="#contact">Get a Free Estimate</a>
-                    <a class="button" href="tel:+13239395066">(323) 939-5066</a>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+                    <a href="#contact" class="button silver">Get a Free Estimate</a>
+                    <a href="tel:+13239395066" class="button">(323) 939-5066</a>
                 </div>
-                <p class="tiny" style="margin-top:.75rem;">
-                    Mon–Fri 8 AM – 6 PM · Sat 8 AM – Noon · 2130 S Vermont Ave, Los Angeles, CA 90007
-                </p>
+                <p class="tiny" style="margin-top:.75rem;">Mon–Fri 8 AM – 6 PM · Sat 8 AM – Noon · 2130 S Vermont Ave, Los Angeles, CA 90007</p>
             </div>
-            <!-- right side: your new logo as an image -->
-            <div class="hero-logo-card" aria-hidden="true">
+            <div class="hero-logo-card" aria-label="AutoPro Collision Center logo">
                 <img src="assets/logo.png" alt="AutoPro Collision Center">
             </div>
         </div>
     </section>
 
-    <!-- the rest of your sections (Services, Gallery, Insurance, Reviews, Contact) can stay the same as before -->
-    <!-- ... -->
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <h2>Services</h2>
+            <p class="h-sub">We repair all makes &amp; models and work with most major insurers.</p>
+            <div class="services-grid">
+                <div class="cardish">
+                    <h3>Collision &amp; Frame</h3>
+                    <p>Unibody &amp; frame straightening, structural repairs, bumper/hood/fender replacement.</p>
+                </div>
+                <div class="cardish">
+                    <h3>Paint &amp; Refinish</h3>
+                    <p>OEM paint-code match, multi-stage clear, blended panels, scratch &amp; chip repair.</p>
+                </div>
+                <div class="cardish">
+                    <h3>Dent &amp; Bumper</h3>
+                    <p>PDR for small dings, plastic bumper repair, headlight &amp; grille replacement.</p>
+                </div>
+                <div class="cardish">
+                    <h3>Towing to Shop</h3>
+                    <p>We can arrange towing so repairs can start right away.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before & After -->
+    <section id="gallery">
+        <div class="container">
+            <h2>Before &amp; After</h2>
+            <p class="h-sub">Swap these placeholders with your real jobs.</p>
+            <div class="gallery-grid">
+                <div class="shot" style="grid-column:span 6;"><span>Before</span></div>
+                <div class="shot" style="grid-column:span 6;"><span>After</span></div>
+                <div class="shot" style="grid-column:span 4;"><span>Before</span></div>
+                <div class="shot" style="grid-column:span 4;"><span>After</span></div>
+                <div class="shot" style="grid-column:span 4;"><span>After</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insurance & Process -->
+    <section id="insurance">
+        <div class="container">
+            <h2>Insurance &amp; Repair Process</h2>
+            <div class="services-grid">
+                <div class="cardish">
+                    <h3>1) Estimate</h3>
+                    <p>We inspect damage and prepare a detailed estimate. We can submit it to your insurance.</p>
+                </div>
+                <div class="cardish">
+                    <h3>2) Authorization</h3>
+                    <p>Once approved, parts are ordered and repair dates are scheduled.</p>
+                </div>
+                <div class="cardish">
+                    <h3>3) Repair &amp; Paint</h3>
+                    <p>Certified technicians perform structural and cosmetic repairs, then paint.</p>
+                </div>
+                <div class="cardish">
+                    <h3>4) Pickup</h3>
+                    <p>Final inspection, wash, and delivery — you drive away with a like-new vehicle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+        <div class="container">
+            <h2>What Customers Say</h2>
+            <div class="testis">
+                <figure class="quote">
+                    <blockquote>“They matched my paint perfectly and handled all the insurance headaches. Car looks brand new.”</blockquote>
+                    <figcaption class="tiny">— Verified Customer</figcaption>
+                </figure>
+                <figure class="quote">
+                    <blockquote>“Quick estimate, fair price, and the silver/black finish is flawless. Highly recommend.”</blockquote>
+                    <figcaption class="tiny">— Verified Customer</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-wrap">
+                <form onsubmit="event.preventDefault(); alert('Thanks! We\'ll contact you shortly.');">
+                    <label>Full Name
+                        <input name="name" required>
+                    </label>
+                    <label>Email
+                        <input name="email" type="email" required>
+                    </label>
+                    <label>Phone
+                        <input name="phone">
+                    </label>
+                    <label>Service Needed
+                        <select name="service">
+                            <option>Collision / Body</option>
+                            <option>Paint / Refinish</option>
+                            <option>Dent / Bumper</option>
+                            <option>Towing</option>
+                            <option>Other</option>
+                        </select>
+                    </label>
+                    <label>Details
+                        <textarea name="details" placeholder="Vehicle year/make/model and insurance claim # (if any)"></textarea>
+                    </label>
+                    <button class="button silver" type="submit">Request Estimate</button>
+                </form>
+                <div class="cardish">
+                    <h3>Visit / Call</h3>
+                    <p><strong>AutoPro Collision Center</strong></p>
+                    <p>2130 S Vermont Ave<br>Los Angeles, CA 90007</p>
+                    <p><strong>Phone:</strong> <a href="tel:+13239395066">(323) 939-5066</a></p>
+                    <p><strong>Hours:</strong><br>
+                        Mon–Fri 8 AM – 6 PM<br>
+                        Sat 8 AM – Noon<br>
+                        Sun Closed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
+<!-- Footer -->
 <footer>
     <div class="container foot">
         <div class="logo-wrap">
-            <img src="assets/logo.png" alt="AutoPro Collision Center" style="height:46px;">
-            <span class="brand">AutoPro Collision Center</span>
+            <img src="assets/logo.png" alt="AutoPro Collision Center" style="height:40px;">
+            <span class="brand">AUTOPRO COLLISION CENTER</span>
         </div>
         <div class="tiny">© <span id="y"></span> AutoPro Collision Center. All rights reserved.</div>
     </div>
