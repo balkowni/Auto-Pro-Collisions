@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AutoPro Collision Center | Body Shop & Collision Repair</title>
-    <meta name="description" content="AutoPro Collision Center — expert collision repair, paint, and dent removal in Los Angeles. Insurance-friendly estimates and fast turnaround." />
+    <title>AutoPro Collision Center | Los Angeles, CA</title>
+    <meta name="description" content="AutoPro Collision Center — collision repair, paint, dent and bumper repair, and towing in Los Angeles. Insurance-friendly estimates and fast turnaround." />
     <meta property="og:title" content="AutoPro Collision Center" />
     <meta property="og:description" content="Modern, insurance-friendly body shop: collision repair, paint, dent & bumper repair." />
     <meta name="theme-color" content="#0b0b0c" />
@@ -107,7 +107,7 @@
             padding:1rem 1.1rem;
         }
 
-        /* ====== BEFORE & AFTER CAROUSEL ====== */
+        /* ===== BEFORE & AFTER CAROUSEL ===== */
         .ba-carousel {
             position: relative;
             background: linear-gradient(180deg, #151517, #0f0f11);
@@ -148,18 +148,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-        .ba-label {
-            position: absolute;
-            top: .55rem;
-            left: .55rem;
-            background: rgba(0,0,0,.7);
-            border: 1px solid rgba(255,255,255,.15);
-            padding: .25rem .55rem;
-            border-radius: 999px;
-            font-size: .7rem;
-            text-transform: uppercase;
-            letter-spacing: .3px;
         }
         .ba-nav {
             position: absolute;
@@ -205,6 +193,34 @@
             color:var(--silver-2);
         }
         textarea{min-height:130px;resize:vertical;}
+
+        /* Modal */
+        .form-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .form-modal.show {
+            display: flex;
+        }
+        .form-modal-content {
+            background: #0f0f11;
+            border: 1px solid #2a2a2d;
+            border-radius: 14px;
+            padding: 1.5rem 1.8rem;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,.4);
+        }
+        .form-modal-content h3 {
+            margin-top: 0;
+            margin-bottom: .5rem;
+            color: #fff;
+        }
 
         /* Footer */
         footer{padding:2rem 0;border-top:1px solid #1b1b1d;color:var(--silver);}
@@ -290,7 +306,7 @@
         </div>
     </section>
 
-    <!-- ===== BEFORE & AFTER CAROUSEL ===== -->
+    <!-- BEFORE & AFTER CAROUSEL -->
     <section id="gallery">
         <div class="container">
             <h2>Before &amp; After</h2>
@@ -299,7 +315,7 @@
             <div class="ba-carousel" aria-label="Before and after gallery">
                 <button class="ba-nav prev" aria-label="Previous vehicle">‹</button>
                 <div class="ba-track">
-                    <!-- Slides injected by JS -->
+                    <!-- slides injected by JS -->
                 </div>
                 <button class="ba-nav next" aria-label="Next vehicle">›</button>
             </div>
@@ -360,7 +376,6 @@
                     <input id="name" name="name" required />
 
                     <label for="email">Email</label>
-                    <!-- formspree prefers _replyto for reply-to -->
                     <input id="email" type="email" name="_replyto" required />
 
                     <label for="phone">Phone</label>
@@ -377,15 +392,10 @@
                     </select>
 
                     <label for="details">Details</label>
-                    <textarea id="details" name="details"
-                              placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
-
-                    <!-- optional subject -->
-                    <input type="hidden" name="_subject" value="New estimate request from website" />
+                    <textarea id="details" name="details" placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
 
                     <button class="button silver" type="submit">Request Estimate</button>
-                    <p class="tiny" style="margin-top:.5rem;">
-                        Prefer to email? Send photos to
+                    <p class="tiny" style="margin-top:.5rem;">Prefer to email? Send photos to
                         <a href="mailto:estimates@autoprocollision.com">estimates@autoprocollision.com</a>
                     </p>
                 </form>
@@ -403,8 +413,16 @@
             </div>
         </div>
     </section>
-
 </main>
+
+<!-- Success Modal -->
+<div id="form-success" class="form-modal" aria-hidden="true">
+    <div class="form-modal-content">
+        <h3>Thank you!</h3>
+        <p>Your form has been submitted — we will contact you as soon as possible.</p>
+        <button id="close-form-success" class="button">Close</button>
+    </div>
+</div>
 
 <!-- Footer -->
 <footer>
@@ -417,141 +435,136 @@
     </div>
 </footer>
 
+<!-- Scripts -->
 <script>
-    // set year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded', () => {
+        // year
+        const y = document.getElementById('y');
+        if (y) y.textContent = new Date().getFullYear();
 
-    // ===== BEFORE/AFTER CAROUSEL DATA =====
-    // change these filenames to the ones you actually uploaded
-    const beforeAfterData = [
-        {
-            name: "Toyota RAV4",
-            before: "assets/gallery/rav4-before.jpg",
-            after:  "assets/gallery/rav4-after.jpg"
-        },
-        {
-            name: "Toyota Camry",
-            before: "assets/gallery/camry-before.jpg",
-            after:  "assets/gallery/camry-after.jpg"
-        },
-        {
-            name: "Chevy Uplander",
-            before: "assets/gallery/chevy-before.jpg",
-            after:  "assets/gallery/chevy-after.jpg"
-        },
-        {
-            name: "Black Sedan",
-            before: "assets/gallery/nissan-before.jpg",
-            after:  "assets/gallery/nissan-after.jpg"
-        }
-    ];
+        // ===== BEFORE/AFTER CAROUSEL =====
+        // use the filenames you uploaded to GitHub
+        const beforeAfterData = [
+            {
+                name: "Toyota",
+                before: "assets/gallery/Toyota-Before.jpg",
+                after:  "assets/gallery/Toyota-After.jpg"
+            },
+            {
+                name: "Camry",
+                before: "assets/gallery/Camry-Before.jpg",
+                after:  "assets/gallery/Camry-After.jpg"
+            },
+            {
+                name: "Chevy",
+                before: "assets/gallery/Chevy-Before.jpg",
+                after:  "assets/gallery/Chevy-After.jpg"
+            },
+            {
+                name: "Nissan",
+                before: "assets/gallery/nissan-before.jpg",
+                after:  "assets/gallery/nissan-after.jpg"
+            }
+        ];
 
-    const track = document.querySelector('.ba-track');
-
-    // build slides
-    beforeAfterData.forEach(car => {
-        const slide = document.createElement('div');
-        slide.className = 'ba-slide';
-        slide.innerHTML = `
-            <div class="ba-car-title">${car.name}</div>
-            <div class="ba-imgwrap">
-                <div class="ba-label">Before</div>
-                <div class="ba-imgbox">
-                    <img src="${car.before}" alt="${car.name} before repair">
-                </div>
+        const track = document.querySelector('.ba-track');
+        if (track) {
+            beforeAfterData.forEach(car => {
+                const slide = document.createElement('div');
+                slide.className = 'ba-slide';
+                slide.innerHTML = `
+          <div class="ba-car-title">${car.name}</div>
+          <div class="ba-imgwrap">
+            <div class="ba-imgbox">
+              <img src="${car.before}" alt="${car.name}">
             </div>
-            <div class="ba-imgwrap">
-                <div class="ba-label">After</div>
-                <div class="ba-imgbox">
-                    <img src="${car.after}" alt="${car.name} after repair">
-                </div>
+          </div>
+          <div class="ba-imgwrap">
+            <div class="ba-imgbox">
+              <img src="${car.after}" alt="${car.name}">
             </div>
+          </div>
         `;
-        track.appendChild(slide);
-    });
-
-    let currentIndex = 0;
-    const total = beforeAfterData.length;
-    const prevBtn = document.querySelector('.ba-nav.prev');
-    const nextBtn = document.querySelector('.ba-nav.next');
-
-    function goToSlide(index) {
-        currentIndex = (index + total) % total;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-
-    // auto-rotate every 6s
-    let auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
-
-    const carousel = document.querySelector('.ba-carousel');
-    carousel.addEventListener('mouseenter', () => clearInterval(auto));
-    carousel.addEventListener('mouseleave', () => {
-        auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
-    });
-
-    // mobile swipe
-    let startX = 0;
-    track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    track.addEventListener('touchend', e => {
-        const diff = e.changedTouches[0].clientX - startX;
-        if (Math.abs(diff) > 40) {
-            if (diff < 0) goToSlide(currentIndex + 1);
-            else goToSlide(currentIndex - 1);
-        }
-    });
-</script>
-<script>
-    const form = document.getElementById('estimate-form');
-    const modal = document.getElementById('form-success');
-    const closeBtn = document.getElementById('close-form-success');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        const endpoint = form.getAttribute('action');
-
-        try {
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                track.appendChild(slide);
             });
 
-            if (res.ok) {
-                form.reset();
-                modal.classList.add('show');
-            } else {
-                // fallback if Formspree returns an error
-                alert('There was a problem submitting the form. Please email us instead.');
+            let currentIndex = 0;
+            const total = beforeAfterData.length;
+            const prevBtn = document.querySelector('.ba-nav.prev');
+            const nextBtn = document.querySelector('.ba-nav.next');
+
+            function goToSlide(index) {
+                currentIndex = (index + total) % total;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
             }
-        } catch (err) {
-            alert('There was a network problem. Please email us instead.');
+
+            if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+            // auto-rotate every 6s
+            let auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
+
+            const carousel = document.querySelector('.ba-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => clearInterval(auto));
+                carousel.addEventListener('mouseleave', () => {
+                    auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
+                });
+            }
+
+            // mobile swipe
+            let startX = 0;
+            track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+            track.addEventListener('touchend', e => {
+                const diff = e.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 40) {
+                    if (diff < 0) goToSlide(currentIndex + 1);
+                    else goToSlide(currentIndex - 1);
+                }
+            });
         }
-    });
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('show');
-    });
+        // ===== FORM + MODAL (Formspree) =====
+        const form = document.getElementById('estimate-form');
+        const modal = document.getElementById('form-success');
+        const closeBtn = document.getElementById('close-form-success');
 
-    // close if you click outside
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('show');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const endpoint = form.getAttribute('action');
+
+                try {
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (res.ok) {
+                        form.reset();
+                        if (modal) modal.classList.add('show');
+                    } else {
+                        alert('There was a problem submitting the form. Please email us instead.');
+                    }
+                } catch (err) {
+                    alert('There was a network problem. Please email us instead.');
+                }
+            });
+        }
+
+        if (closeBtn && modal) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('show');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('show');
+            });
         }
     });
 </script>
-<div id="form-success" class="form-modal" aria-hidden="true">
-    <div class="form-modal-content">
-        <h3>Thank you!</h3>
-        <p>Your form has been submitted — we will contact you as soon as possible.</p>
-        <button id="close-form-success" class="button">Close</button>
-    </div>
-</div>
 </body>
 </html>
