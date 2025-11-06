@@ -107,25 +107,77 @@
             padding:1rem 1.1rem;
         }
 
-        /* Gallery */
-        .gallery-grid{
-            display:grid;
-            grid-template-columns:repeat(12,1fr);
-            gap:1rem;
-            margin-top:1.1rem;
+        /* ====== BEFORE & AFTER CAROUSEL ====== */
+        .ba-carousel {
+            position: relative;
+            background: linear-gradient(180deg, #151517, #0f0f11);
+            border: 1px solid #232327;
+            border-radius: 16px;
+            margin-top: 1.1rem;
+            overflow: hidden;
+            min-height: 310px;
         }
-        .shot{
-            aspect-ratio:4/3;
-            border-radius:14px;
-            background:linear-gradient(180deg,#2a2a2d,#1b1b1d);
-            border:1px solid #2a2a2d;
-            position:relative;
+        .ba-track {
+            display: flex;
+            transition: transform .45s ease;
+            width: 100%;
         }
-        .shot span{
-            position:absolute;bottom:.6rem;left:.6rem;
-            background:rgba(0,0,0,.55);border:1px solid #2a2a2d;
-            border-radius:999px;padding:.25rem .6rem;font-size:.75rem;
+        .ba-slide {
+            min-width: 100%;
+            padding: 1rem 1.1rem 1.25rem;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
         }
+        .ba-car-title {
+            grid-column: 1 / -1;
+            font-weight: 600;
+            letter-spacing: .2px;
+        }
+        .ba-imgwrap { position: relative; }
+        .ba-imgbox {
+            background: #0b0b0c;
+            border: 1px solid #2a2a2d;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            display: grid;
+            place-items: center;
+        }
+        .ba-imgbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .ba-label {
+            position: absolute;
+            top: .55rem;
+            left: .55rem;
+            background: rgba(0,0,0,.7);
+            border: 1px solid rgba(255,255,255,.15);
+            padding: .25rem .55rem;
+            border-radius: 999px;
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+        }
+        .ba-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(7,7,7,.6);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #fff;
+            border-radius: 999px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            z-index: 5;
+        }
+        .ba-nav.prev { left: .6rem; }
+        .ba-nav.next { right: .6rem; }
 
         /* Testimonials */
         .testis{
@@ -162,7 +214,8 @@
         @media (max-width:900px){
             .hero-inner,.contact-wrap{grid-template-columns:1fr;}
             .links{display:none;}
-            .gallery-grid{grid-template-columns:1fr;}
+            .ba-slide { grid-template-columns: 1fr; }
+            .ba-carousel { min-height: 520px; }
         }
     </style>
 </head>
@@ -237,18 +290,21 @@
         </div>
     </section>
 
-    <!-- Before & After -->
+    <!-- ===== BEFORE & AFTER CAROUSEL ===== -->
     <section id="gallery">
         <div class="container">
             <h2>Before &amp; After</h2>
-            <p class="h-sub">Swap these placeholders with your real jobs.</p>
-            <div class="gallery-grid">
-                <div class="shot" style="grid-column:span 6;"><span>Before</span></div>
-                <div class="shot" style="grid-column:span 6;"><span>After</span></div>
-                <div class="shot" style="grid-column:span 4;"><span>Before</span></div>
-                <div class="shot" style="grid-column:span 4;"><span>After</span></div>
-                <div class="shot" style="grid-column:span 4;"><span>After</span></div>
+            <p class="h-sub">Recent repairs from AutoPro Collision Center.</p>
+
+            <div class="ba-carousel" aria-label="Before and after gallery">
+                <button class="ba-nav prev" aria-label="Previous vehicle">‹</button>
+                <div class="ba-track">
+                    <!-- Slides injected by JS -->
+                </div>
+                <button class="ba-nav next" aria-label="Next vehicle">›</button>
             </div>
+
+            <p class="tiny" style="margin-top:.75rem;">Swipe on mobile or let it play.</p>
         </div>
     </section>
 
@@ -299,7 +355,7 @@
         <div class="container">
             <h2>Contact Us</h2>
             <div class="contact-wrap">
-                <form onsubmit="event.preventDefault(); alert('Thanks! We\'ll contact you shortly.');">
+                <form onsubmit="event.preventDefault(); alert('Thanks! We\\'ll contact you shortly.');">
                     <label>Full Name
                         <input name="name" required>
                     </label>
@@ -352,7 +408,90 @@
 </footer>
 
 <script>
+    // set year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // ===== BEFORE/AFTER CAROUSEL DATA =====
+    // change these filenames to the ones you actually uploaded
+    const beforeAfterData = [
+        {
+            name: "Toyota RAV4",
+            before: "assets/gallery/rav4-before.jpg",
+            after:  "assets/gallery/rav4-after.jpg"
+        },
+        {
+            name: "Toyota Camry",
+            before: "assets/gallery/camry-before.jpg",
+            after:  "assets/gallery/camry-after.jpg"
+        },
+        {
+            name: "Chevy Uplander",
+            before: "assets/gallery/chevy-before.jpg",
+            after:  "assets/gallery/chevy-after.jpg"
+        },
+        {
+            name: "Black Sedan",
+            before: "assets/gallery/black-before.jpg",
+            after:  "assets/gallery/black-after.jpg"
+        }
+    ];
+
+    const track = document.querySelector('.ba-track');
+
+    // build slides
+    beforeAfterData.forEach(car => {
+        const slide = document.createElement('div');
+        slide.className = 'ba-slide';
+        slide.innerHTML = `
+            <div class="ba-car-title">${car.name}</div>
+            <div class="ba-imgwrap">
+                <div class="ba-label">Before</div>
+                <div class="ba-imgbox">
+                    <img src="${car.before}" alt="${car.name} before repair">
+                </div>
+            </div>
+            <div class="ba-imgwrap">
+                <div class="ba-label">After</div>
+                <div class="ba-imgbox">
+                    <img src="${car.after}" alt="${car.name} after repair">
+                </div>
+            </div>
+        `;
+        track.appendChild(slide);
+    });
+
+    let currentIndex = 0;
+    const total = beforeAfterData.length;
+    const prevBtn = document.querySelector('.ba-nav.prev');
+    const nextBtn = document.querySelector('.ba-nav.next');
+
+    function goToSlide(index) {
+        currentIndex = (index + total) % total;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    // auto-rotate every 6s
+    let auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
+
+    const carousel = document.querySelector('.ba-carousel');
+    carousel.addEventListener('mouseenter', () => clearInterval(auto));
+    carousel.addEventListener('mouseleave', () => {
+        auto = setInterval(() => goToSlide(currentIndex + 1), 6000);
+    });
+
+    // mobile swipe
+    let startX = 0;
+    track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    track.addEventListener('touchend', e => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) > 40) {
+            if (diff < 0) goToSlide(currentIndex + 1);
+            else goToSlide(currentIndex - 1);
+        }
+    });
 </script>
 </body>
 </html>
