@@ -355,29 +355,39 @@
         <div class="container">
             <h2>Contact Us</h2>
             <div class="contact-wrap">
-                <form onsubmit="event.preventDefault(); alert('Thanks! We\\'ll contact you shortly.');">
-                    <label>Full Name
-                        <input name="name" required>
-                    </label>
-                    <label>Email
-                        <input name="email" type="email" required>
-                    </label>
-                    <label>Phone
-                        <input name="phone">
-                    </label>
-                    <label>Service Needed
-                        <select name="service">
-                            <option>Collision / Body</option>
-                            <option>Paint / Refinish</option>
-                            <option>Dent / Bumper</option>
-                            <option>Towing</option>
-                            <option>Other</option>
-                        </select>
-                    </label>
-                    <label>Details
-                        <textarea name="details" placeholder="Vehicle year/make/model and insurance claim # (if any)"></textarea>
-                    </label>
+                <form id="estimate-form" action="https://formspree.io/f/mgvpgzby" method="POST">
+                    <label for="name">Full Name</label>
+                    <input id="name" name="name" required />
+
+                    <label for="email">Email</label>
+                    <!-- formspree prefers _replyto for reply-to -->
+                    <input id="email" type="email" name="_replyto" required />
+
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" />
+
+                    <label for="service">Service Needed</label>
+                    <select id="service" name="service">
+                        <option>Collision / Frame</option>
+                        <option>Paint / Refinish</option>
+                        <option>Dent / Hail (PDR)</option>
+                        <option>Wheel / Bumper</option>
+                        <option>Glass / Trim</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label for="details">Details</label>
+                    <textarea id="details" name="details"
+                              placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
+
+                    <!-- optional subject -->
+                    <input type="hidden" name="_subject" value="New estimate request from website" />
+
                     <button class="button silver" type="submit">Request Estimate</button>
+                    <p class="tiny" style="margin-top:.5rem;">
+                        Prefer to email? Send photos to
+                        <a href="mailto:estimates@autoprocollision.com">estimates@autoprocollision.com</a>
+                    </p>
                 </form>
                 <div class="cardish">
                     <h3>Visit / Call</h3>
@@ -493,5 +503,55 @@
         }
     });
 </script>
+<script>
+    const form = document.getElementById('estimate-form');
+    const modal = document.getElementById('form-success');
+    const closeBtn = document.getElementById('close-form-success');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const endpoint = form.getAttribute('action');
+
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (res.ok) {
+                form.reset();
+                modal.classList.add('show');
+            } else {
+                // fallback if Formspree returns an error
+                alert('There was a problem submitting the form. Please email us instead.');
+            }
+        } catch (err) {
+            alert('There was a network problem. Please email us instead.');
+        }
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+
+    // close if you click outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+</script>
+<div id="form-success" class="form-modal" aria-hidden="true">
+    <div class="form-modal-content">
+        <h3>Thank you!</h3>
+        <p>Your form has been submitted — we will contact you as soon as possible.</p>
+        <button id="close-form-success" class="button">Close</button>
+    </div>
+</div>
 </body>
 </html>
