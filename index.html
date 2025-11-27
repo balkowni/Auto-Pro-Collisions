@@ -126,15 +126,15 @@
     <section id="reviews">
         <div class="container">
             <h2>What Customers Say</h2>
-            <div class="testis">
-                <figure class="quote reveal">
-                    <blockquote>“They matched my paint perfectly and handled all the insurance headaches. Car looks brand new.”</blockquote>
-                    <figcaption class="tiny">— Verified Customer</figcaption>
-                </figure>
-                <figure class="quote reveal">
-                    <blockquote>“Quick estimate, fair price, and the silver/black finish is flawless. Highly recommend.”</blockquote>
-                    <figcaption class="tiny">— Verified Customer</figcaption>
-                </figure>
+            <div class="yelp-carousel reveal" aria-label="Reviews carousel">
+                <button class="yelp-nav prev" aria-label="Previous review">‹</button>
+                <div class="yelp-track">
+                    <!-- review slides injected by JS -->
+                </div>
+                <button class="yelp-nav next" aria-label="Next review">›</button>
+            </div>
+            <div class="review-cta">
+                <a class="button silver" href="https://www.yelp.com/biz/autopro-collision-center-los-angeles-2" target="_blank" rel="noopener">See all reviews on Yelp</a>
             </div>
         </div>
     </section>
@@ -168,9 +168,6 @@
                     <textarea id="details" name="details" placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
 
                     <button class="button silver" type="submit">Request Estimate</button>
-                    <p class="tiny" style="margin-top:.5rem;">Prefer to email? Send photos to
-                        <a href="mailto:estimates@autoprocollision.com">estimates@autoprocollision.com</a>
-                    </p>
                 </form>
                 <div class="cardish reveal">
                     <h3>Visit / Call</h3>
@@ -366,6 +363,91 @@
 
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) modal.classList.remove('show');
+            });
+        }
+
+        // ===== REVIEWS CAROUSEL (Curated) =====
+        // Edit the array below with 3–5 of your best reviews.
+        const curatedReviews = [
+            {
+                name: "Amir S.",
+                rating: 5,
+                text: "My car got rear-ended, I went to Autopro for the body work, and boy they did an excellent job in fixing my SUV, and they finished the job in a timely manner, whenever I called to check the status of the repairs they responded right away. I want to give a special shout-out to Ana & Erika for their outstanding response time. I am definitely recommending them to my friends if they need body work for their cars. Finally , I want to thank Jesse for having such an amazing team working for him. Keep up the good work!"
+            },
+            {
+                name: "Jojo H.",
+                rating: 5,
+                text: "Amazing service!! One of my car parts fell loose on the freeway, found this spot right next to the exit and they were quick to help me!! Amazing people and great service!"
+            },
+            {
+                name: "Cheyenne M.",
+                rating: 5,
+                text: "I just had my first car accident as a driver about a month ago. So much was happening but Jesse and his team swooped in and literally saved the day, giving me constant reassurance that everything was going to be okay and that I was in good hands. I was honestly so skeptical and nervous seeing old past reviews but they quickly turned things around and made sure my car was fixed up and looking like brand new in almost no time! The desk staff were so nice and sweet and everything was explained to me thoroughly. I couldn't have asked for a better experience."
+            },
+            {
+                name: "Alan Q.",
+                rating: 5,
+                text: "I took my car in on Wednesday morning and Jesse and his team took care of me. They made me feel welcomed and assured me that everything will get taken care of in a timely fashion. They were always in constant communication throughout the whole process and my car was ready for pick up by Saturday morning. Couldn't have asked for a better experience. Thanks again to you and your team for the amazing work."
+            },
+            {
+                name: "Vivian H.",
+                rating: 5,
+                text: "Great auto body shop — love coming here to do any body work for my cars or family cars. They treat you like fam; highly recommend. They worked closely with my insurance and had my car back in no time."
+            }
+        ];
+
+        const yTrack = document.querySelector('.yelp-track');
+        if (yTrack && curatedReviews.length) {
+            curatedReviews.forEach((rev) => {
+                const slide = document.createElement('div');
+                slide.className = 'yelp-slide';
+                const stars = '★★★★★';
+                const ratingRounded = Math.round(rev.rating * 10) / 10;
+                const ratingText = ratingRounded % 1 === 0 ? ratingRounded.toFixed(0) : ratingRounded.toFixed(1);
+                slide.innerHTML = `
+          <div class="yelp-head">
+            <div class="yelp-badge">Yelp</div>
+            <div class="yelp-stars" aria-label="${ratingText} out of 5 stars">${stars}</div>
+          </div>
+          <blockquote class="yelp-quote">${rev.text}</blockquote>
+          <div class="yelp-meta">
+            <span class="yelp-name">— ${rev.name}</span>
+          </div>
+        `;
+                yTrack.appendChild(slide);
+            });
+
+            let yIndex = 0;
+            const yTotal = curatedReviews.length;
+            function goToReview(index) {
+                yIndex = (index + yTotal) % yTotal;
+                yTrack.style.transform = `translateX(-${yIndex * 100}%)`;
+            }
+
+            const yPrev = document.querySelector('.yelp-nav.prev');
+            const yNext = document.querySelector('.yelp-nav.next');
+            if (yPrev) yPrev.addEventListener('click', () => goToReview(yIndex - 1));
+            if (yNext) yNext.addEventListener('click', () => goToReview(yIndex + 1));
+
+            // auto-rotate
+            let yAuto = setInterval(() => goToReview(yIndex + 1), 7000);
+            const yWrap = document.querySelector('.yelp-carousel');
+            if (yWrap) {
+                yWrap.addEventListener('mouseenter', () => clearInterval(yAuto));
+                yWrap.addEventListener('mouseleave', () => {
+                    yAuto = setInterval(() => goToReview(yIndex + 1), 7000);
+                });
+            }
+
+            // swipe support
+            let yStartX = 0;
+            yTrack.addEventListener('touchstart', e => yStartX = e.touches[0].clientX);
+            yTrack.addEventListener('touchend', e => {
+                const diff = e.changedTouches[0].clientX - yStartX;
+                if (Math.abs(diff) > 40) {
+                    if (diff < 0) goToReview(yIndex + 1);
+                    else goToReview(yIndex - 1);
+                }
             });
         }
     });
