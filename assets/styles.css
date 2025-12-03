@@ -38,6 +38,17 @@ body::before {
     pointer-events: none;
     will-change: transform;
 }
+
+@media (max-width: 768px) {
+    body::before {
+        /* Darker overlay for mobile readability */
+        background:
+            linear-gradient(180deg, rgba(11,11,12,0.6) 0%, rgba(11,11,12,0.95) 100%),
+            url('bg-car.jpg') center/cover no-repeat;
+        height: 100dvh; /* Prevents address bar jumps */
+    }
+}
+
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 h1, h2, h3 { color: var(--white); margin: 0 0 .5rem; font-family: 'Outfit', sans-serif; }
