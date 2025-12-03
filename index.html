@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AutoPro Collision Center | Los Angeles, CA</title>
     <meta name="description" content="AutoPro Collision Center — collision repair, paint, dent and bumper repair, and towing in Los Angeles. Insurance-friendly estimates and fast turnaround." />
+    <meta name="robots" content="index, follow" />
     <meta property="og:title" content="AutoPro Collision Center" />
     <meta property="og:description" content="Modern, insurance-friendly body shop: collision repair, paint, dent & bumper repair." />
     <meta name="theme-color" content="#0b0b0c" />
+    <meta property="og:image" content="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -15,7 +20,7 @@
 <header>
     <div class="container nav">
         <a href="#top" class="logo-wrap">
-            <img src="assets/logo.png" alt="AutoPro Collision Center">
+            <img src="assets/logo.png" alt="AutoPro Collision Center" width="46" height="46">
             <span class="brand">AUTOPRO COLLISION CENTER</span>
         </a>
         <nav class="links" aria-label="Primary">
@@ -50,7 +55,7 @@
                 <p class="tiny" style="margin-top:.75rem;">Mon–Fri 8 AM – 6 PM · Sat 8 AM – Noon · 2130 S Vermont Ave, Los Angeles, CA 90007</p>
             </div>
             <div class="hero-logo-card reveal" aria-label="AutoPro Collision Center logo">
-                <img src="assets/logo.png" alt="AutoPro Collision Center">
+                <img src="assets/logo.png" alt="AutoPro Collision Center" width="1024" height="1024">
             </div>
         </div>
     </section>
@@ -145,40 +150,75 @@
             <h2>Contact Us</h2>
             <div class="contact-wrap">
                 <form id="estimate-form" class="reveal" action="https://formspree.io/f/mvgjoqro" method="POST">
-                    <label for="name">Full Name</label>
-                    <input id="name" name="name" required />
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input id="name" name="name" required />
+                    </div>
 
-                    <label for="email">Email</label>
-                    <input id="email" type="email" name="_replyto" required />
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="_replyto" required />
+                    </div>
 
-                    <label for="phone">Phone</label>
-                    <input id="phone" name="phone" />
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input id="phone" name="phone" />
+                    </div>
 
-                    <label for="service">Service Needed</label>
-                    <select id="service" name="service">
-                        <option>Collision / Frame</option>
-                        <option>Paint / Refinish</option>
-                        <option>Dent / Hail (PDR)</option>
-                        <option>Wheel / Bumper</option>
-                        <option>Glass / Trim</option>
-                        <option>Other</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="service">Service Needed</label>
+                        <select id="service" name="service">
+                            <option>Collision / Frame</option>
+                            <option>Paint / Refinish</option>
+                            <option>Dent / Hail (PDR)</option>
+                            <option>Wheel / Bumper</option>
+                            <option>Glass / Trim</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
 
-                    <label for="details">Details</label>
-                    <textarea id="details" name="details" placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
+                    <div class="form-group">
+                        <label for="details">Details</label>
+                        <textarea id="details" name="details" placeholder="Vehicle year/make/model, insurance claim # (if any), and a brief description."></textarea>
+                    </div>
 
                     <button class="button silver" type="submit">Request Estimate</button>
                 </form>
-                <div class="cardish reveal">
-                    <h3>Visit / Call</h3>
-                    <p><strong>AutoPro Collision Center</strong></p>
-                    <p>2130 S Vermont Ave<br>Los Angeles, CA 90007</p>
-                    <p><strong>Phone:</strong> <a href="tel:+13239395066">(323) 939-5066</a></p>
-                    <p><strong>Hours:</strong><br>
-                        Mon–Fri 8 AM – 6 PM<br>
-                        Sat 8 AM – Noon<br>
-                        Sun Closed
-                    </p>
+                <div class="cardish reveal contact-card">
+                    <h3>Visit Us</h3>
+                    
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <div class="c-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div class="c-details">
+                                <strong>AutoPro Collision Center</strong><br>
+                                2130 S Vermont Ave<br>Los Angeles, CA 90007
+                            </div>
+                        </div>
+
+                        <div class="contact-item v-center">
+                             <div class="c-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </div>
+                            <div class="c-details">
+                                <a href="tel:+13239395066" class="phone-link">(323) 939-5066</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                             <div class="c-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <div class="c-details">
+                                <div class="hours-row"><span>Mon–Fri</span> <span>8 AM – 6 PM</span></div>
+                                <div class="hours-row"><span>Sat</span> <span>8 AM – Noon</span></div>
+                                <div class="hours-row"><span>Sun</span> <span>Closed</span></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="map-wrap reveal" aria-label="Map to AutoPro Collision Center">
                         <iframe
                             title="AutoPro Collision Center Location"
@@ -188,8 +228,12 @@
                         </iframe>
                     </div>
                     <div class="map-actions">
-                        <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=2130+S+Vermont+Ave,+Los+Angeles,+CA+90007" target="_blank" rel="noopener">Get Directions</a>
-                        <a class="button" href="https://maps.apple.com/?address=2130%20S%20Vermont%20Ave,%20Los%20Angeles,%20CA%20%2090007,%20United%20States&ll=34.034900,-118.291500&q=AutoPro%20Collision%20Center" target="_blank" rel="noopener">Open in Apple Maps</a>
+                        <a class="button" href="https://www.google.com/maps/dir/?api=1&destination=2130+S+Vermont+Ave,+Los+Angeles,+CA+90007" target="_blank" rel="noopener">
+                            <svg style="width:16px;height:16px;margin-right:4px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg> Directions
+                        </a>
+                        <a class="button" href="https://maps.apple.com/?address=2130%20S%20Vermont%20Ave,%20Los%20Angeles,%20CA%20%2090007,%20United%20States&ll=34.034900,-118.291500&q=AutoPro%20Collision%20Center" target="_blank" rel="noopener">
+                            <svg style="width:16px;height:16px;margin-right:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.07-3.11-1.06.05-2.36.71-3.13 1.6-.66.75-1.24 1.96-1.09 3.1.2 0 2.42.18 3.15-1.59z"></path></svg> Apple Maps
+                        </a>
                     </div>
                 </div>
             </div>
@@ -210,7 +254,7 @@
 <footer>
     <div class="container foot">
         <div class="logo-wrap">
-            <img src="assets/logo.png" alt="AutoPro Collision Center" style="height:40px;">
+            <img src="assets/logo.png" alt="AutoPro Collision Center" style="height:40px;" width="40" height="40" loading="lazy">
             <span class="brand">AUTOPRO COLLISION CENTER</span>
         </div>
         <div class="tiny">© <span id="y"></span> AutoPro Collision Center. All rights reserved.</div>
@@ -276,13 +320,13 @@
           <div class="ba-imgwrap">
             <div class="ba-imgbox">
               <span class="ba-label">Before</span>
-              <img src="${car.before}" alt="${car.name}">
+              <img src="${car.before}" alt="${car.name} Before" width="750" height="1000" loading="lazy" decoding="async">
             </div>
           </div>
           <div class="ba-imgwrap">
             <div class="ba-imgbox">
               <span class="ba-label">After</span>
-              <img src="${car.after}" alt="${car.name}">
+              <img src="${car.after}" alt="${car.name} After" width="750" height="1000" loading="lazy" decoding="async">
             </div>
           </div>
         `;
